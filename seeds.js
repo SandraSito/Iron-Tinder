@@ -20,9 +20,6 @@ mongoose
     console.error('Error connecting to mongo', err)
   });
 
-  // https://slack.com/api/channels.info?token=xoxp-2432150752-360856482067-487678719299-b06b55a4222871e6b246a9bcacb2dcee&channel=CEB4Y1SHE&pretty=1
-  
-
   axios.get(`https://slack.com/api/channels.info?token=${process.env.TOKEN}&channel=${process.env.GROUP}&pretty=1`)
  .then((response) => {
   console.log(response.data.channel.members)
