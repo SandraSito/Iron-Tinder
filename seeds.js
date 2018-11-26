@@ -26,15 +26,16 @@ mongoose
    response.data.channel.members.forEach(element => {
     axios.get(`https://slack.com/api/users.info?token=${process.env.TOKEN}&user=${element}&pretty=1`)
     .then((singleuser)=> {
-      
+      const userData = singleuser.data.user
+      const userProfile = singleuser.data.user.profile
       const newUser = new User();
-      newUser.id = singleuser.data.user.id;
-      newUser.team_id = singleuser.data.user.team_id;
-      newUser.email = singleuser.data.user.profile.email;
-      newUser.first_name = singleuser.data.user.profile.first_name;
-      newUser.last_name = singleuser.data.user.profile.last_name;
-      newUser.display_name = singleuser.data.user.profile.display_name;
-      newUser.avatar_hash = singleuser.data.user.profile.avatar_hash;
+      newUser.id = userData.id;
+      newUser.team_id = userData.team_id;
+      newUser.email = userProfile.email;
+      newUser.first_name = userProfile.first_name;
+      newUser.last_name = userProfile.last_name;
+      newUser.display_name = userProfile.display_name;
+      newUser.avatar_img = `https://ca.slack-edge.com/${userData.team_id}-${userData.id}-${userProfile.avatar_hash}-1024`;
       newUser.save()
       .then(() => {
         console.log("User created")

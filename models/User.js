@@ -8,7 +8,7 @@ const userSchema = new Schema({
   first_name: String,
   last_name: String,
   display_name: String,
-  avatar_hash: String
+  avatar_img: String
 }, {
   timestamps: {
     createdAt: 'created_at',
