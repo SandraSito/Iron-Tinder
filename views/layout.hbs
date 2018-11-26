@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,18 +9,17 @@
   <link rel="stylesheet" href="/stylesheets/style.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
 </head>
+
 <body>
+  <div id="layout-container">
+    <nav>
+      <a href="/">LOGO</a>
+    </nav>
 
-  <nav>
-    <a href="/">Home</a>
-    {{!-- <a href="/auth/login">Login</a> --}}
-    {{!-- <a href="/auth/signup">Signup</a> --}}
-    <a href="/auth/logout">Logout</a>
-    <a href="https://slack.com/oauth/authorize?scope=identity.basic,identity.email,identity.team,identity.avatar&client_id=2432150752.487739429266"><img alt="Sign in with Slack" height="40" width="172" src="https://platform.slack-edge.com/img/sign_in_with_slack.png"/></a>
-  </nav>
-
-  {{{body}}}
-
+    {{{body}}}
+    <footer>MY FOOTER</footer>
+  </div>
   <script src="/javascripts/script.js"></script>
 </body>
+
 </html>

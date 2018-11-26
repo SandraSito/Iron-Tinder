@@ -1,8 +1,59 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+*{
+  box-sizing: content-box;
 }
 
-a {
-  color: #00B7FF;
+html,body {
+  margin: 0;
+  padding: 0;
+}
+/**** LAYAOUT STYLE *****/
+
+#layout-container {
+ // background-image: url(../images/slider/slider2.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  min-height: 100vh;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  animation: Slider 15s ease infinite;
+}
+
+@keyframes Slider {
+	0% {
+		background-image: url(../images/slider/slider5.jpg)
+	}
+	40% {
+		background-image: url(../images/slider/slider3.jpg)
+	}
+	80% {
+		background-image: url(../images/slider/slider4.jpg)
+  }
+  100% {
+		background-image: url(../images/slider/slider5.jpg)
+	}
+}
+
+nav a {
+  color:white;
+  font-size:2em;
+}
+/**** INDEX STYLES *****/
+
+#index-container {
+  
+}
+
+.slogan {
+  color:white;
+  font-size: 4em;
+}
+
+/*** FOOTER ***/
+
+footer {
+  height: 50px;
+  background-color: white;
+  width: 100%;
 }

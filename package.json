@@ -29,5 +29,21 @@
   },
   "devDependencies": {
     "nodemon": "^1.12.1"
-  }
+  },
+  "main": "app.js",
+  "bin": {
+    "iron-tinder": "seeds.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SandraSito/Iron-Tinder.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SandraSito/Iron-Tinder/issues"
+  },
+  "homepage": "https://github.com/SandraSito/Iron-Tinder#readme",
+  "description": ""
 }
