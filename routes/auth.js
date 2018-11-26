@@ -2,6 +2,9 @@ const express = require("express");
 const passport = require('passport');
 const router = express.Router();
 const User = require("../models/User");
+const axios = require("axios")
+const { ensureLoggedIn, ensureLoggedOut } = require("connect-ensure-login");
+
 
 
 // Bcrypt to encrypt passwords
@@ -9,36 +12,30 @@ const bcrypt = require("bcrypt");
 const bcryptSalt = 10;
 
 
-
-router.get('/slack',
-  passport.authenticate('slack'),
-
-  function(req, res){
-    res.render("auth/login")
-    // The request will be redirected to LinkedIn for authentication, so this
-    // function will not be called.
-  });
-
   router.get('/callback', 
-  passport.authorize('slack', { failureRedirect: '/login' }),
+  passport.authenticate('slack', { failureRedirect: '/auth/login' }),
   (req, res) => {
-
-    console.log(req.account)
-    res.redirect('/')
+    console.log("++++++++++++++")
+    console.log(req.user)
+    console.log("++++++++++++++")
+    res.redirect('/profile/logindex')
   }
-  
 );
 
-router.get("/login", (req, res, next) => {
-  res.render("auth/login", { "message": req.flash("error") });
-});
 
-router.post("/login", passport.authenticate("local", {
-  successRedirect: "/",
-  failureRedirect: "/auth/login",
-  failureFlash: true,
-  passReqToCallback: true
-}));
+
+
+
+// router.get("/login", (req, res, next) => {
+//   res.render("auth/login", { "message": req.flash("error") });
+// });
+
+// router.post("/login", passport.authenticate("local", {
+//   successRedirect: "/",
+//   failureRedirect: "/auth/login",
+//   failureFlash: true,
+//   passReqToCallback: true
+// }));
 
 router.get("/signup", (req, res, next) => {
   res.render("auth/signup");

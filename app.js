@@ -12,7 +12,7 @@ const passport     = require('passport');
 const session    = require("express-session");
 const MongoStore = require('connect-mongo')(session);
 const flash      = require("connect-flash");
-const SlackStrategy = require('passport-slack').Strategy;
+
 
     
 
@@ -76,24 +76,11 @@ app.use(session({
   store: new MongoStore( { mongooseConnection: mongoose.connection })
 }))
 app.use(flash());
-require('./passport')(app);
+ require('./passport')(app);
 
-passport.use(new SlackStrategy({
-  clientID: process.env.CLIENT_ID,
-  clientSecret: process.env.CLIENT_SECRET
-}, (accessToken, refreshToken, profile, done) => {
-  // optionally persist profile data
-  done(null, profile);
-}
-));
 
-passport.serializeUser(function(user, done) {
-  done(null, user);
- });
- 
- passport.deserializeUser(function(obj, done) {
-  done(null, obj);
- });
+
+
 
 
 
@@ -105,6 +92,9 @@ app.use('/', index);
 
 const authRoutes = require('./routes/auth');
 app.use('/auth', authRoutes);
+
+const profileRoutes = require('./routes/profile');
+app.use('/profile', profileRoutes);
       
 
 module.exports = app;
