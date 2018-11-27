@@ -1,5 +1,10 @@
-document.addEventListener('DOMContentLoaded', () => {
+window.onload = function() {
+  
+  document.getElementById('btn-register').onclick = modalShow;
 
-  console.log('IronGenerator JS imported successfully!');
+  function modalShow () {
+    document.querySelector('.login-modal').style.display = 'block'
+  }
 
-}, false);
+
+};
