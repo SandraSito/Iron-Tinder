@@ -10,7 +10,11 @@
   <!--Fonts-->
   <link href="https://fonts.googleapis.com/css?family=Yeseva+One" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+
+  <!-- Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
+
 </head>
 
 <body>
@@ -20,10 +24,13 @@
         <img src="../images/iron-logo.png" alt="logo-IronTinder">
       </a>
     </nav>
-
+    {{> loginModal}}
     {{{body}}}
-    <footer><p>IRON TINDER</p></footer>
+    <footer>
+      <p>IRON TINDER</p>
+    </footer>
   </div>
+
   <script src="/javascripts/script.js"></script>
 </body>
 
