@@ -9,17 +9,24 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const User = require("./models/User");
 const axios = require("axios");
-const bcryptSalt = 11;
+
 
 mongoose
   .connect(
-    "mongodb://localhost/iron-tinder",
+    `mongodb:${process.env.DBPATH}`,
     { useNewUrlParser: true }
   )
   .then(x => {
     console.log(
       `Connected to Mongo! Database name: "${x.connections[0].name}"`
     );
+    updateDB();
+  })
+  .catch(err => {
+    console.error("Error connecting to mongo", err);
+  });
+
+  function updateDB(){
     User.collection.drop()
   .then(() => {
 
@@ -68,11 +75,7 @@ mongoose
 
 
    })
-
-  })
-  .catch(err => {
-    console.error("Error connecting to mongo", err);
-  });
+  }
 
 
   
