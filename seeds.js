@@ -18,39 +18,28 @@ mongoose
   )
   .then(x => {
     console.log(
-      `Connected to Mongo! Database name: "${x.connections[0].name}"`
-    );
-    updateDB();
+      `Connected to Mongo! Database name: "${x.connections[0].name}"`);
+      updateDB();
   })
   .catch(err => {
     console.error("Error connecting to mongo", err);
   });
 
   function updateDB(){
-    User.collection.drop()
+    User.deleteMany()
   .then(() => {
 
-    axios
-    .get(
-      `https://slack.com/api/channels.info?token=${process.env.TOKEN}&channel=${
-        process.env.GROUP
-      }&pretty=1`
-    )
+    axios.get(`https://slack.com/api/channels.info?token=${process.env.TOKEN}&channel=${process.env.GROUP}&pretty=1`)
     .then(response => {
       console.log(response.data.channel.members);
-      response.data.channel.members.forEach(element => {
-        axios
-          .get(
-            `https://slack.com/api/users.info?token=${
-              process.env.TOKEN
-            }&user=${element}&pretty=1`
-          )
+      return Promise.all(response.data.channel.members.map(element => {
+        return axios.get(`https://slack.com/api/users.info?token=${process.env.TOKEN}&user=${element}&pretty=1`)
   
           .then(singleuser => {
             const userData = singleuser.data.user;
             const userProfile = singleuser.data.user.profile;
             const newUser = new User();
-            newUser.id = userData.id;
+            newUser.slack_id = userData.id;
             newUser.team_id = userData.team_id;
             newUser.email = userProfile.email;
             newUser.first_name = userProfile.first_name;
@@ -60,7 +49,7 @@ mongoose
               userData.id
             }-${userProfile.avatar_hash}-1024`;
   
-            newUser
+            return newUser
               .save()
               .then(() => {
                 console.log("User created");
@@ -68,12 +57,26 @@ mongoose
               .catch(error => {
                 console.log("Error to add a new user" + error);
               });
-          });
-      });
-    });
+          }).catch(()=>{
+            console.log("Something went wrong during user consult")
+          })
+      }));
+    })
+    .then(() => {
+      console.log("Completed")
+      return mongoose.disconnect();
+    })
+    .then(() => console.log("Disconnect"))
+    .catch(()=>{
+      console.log("Something went wrong during team consulting")
+    })
   
 
 
+   })
+   .catch(err => {
+     console.log(err);
+     mongoose.disconnect();
    })
   }
 

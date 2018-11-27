@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema   = mongoose.Schema;
 
 const userSchema = new Schema({
-  id: {type: String, unique: true},
+  slack_id: {type: String, unique: true},
   team_id: String,
   email: String,
   first_name: String,

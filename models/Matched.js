@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Schema   = mongoose.Schema;
 
 const matchSchema = new Schema({
+  slack_id: String,
   matches: Array
 }, {
   timestamps: {
