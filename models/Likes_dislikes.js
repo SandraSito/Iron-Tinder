@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema   = mongoose.Schema;
 
 const likedisSchema = new Schema({
-id: String,
+slack_id: String,
 likes: Array,
 dislikes: Array
 },{
