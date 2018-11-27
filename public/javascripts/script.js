@@ -1,10 +1,16 @@
-window.onload = function() {
-  
-  document.getElementById('btn-register').onclick = modalShow;
+window.onload = function () {
 
-  function modalShow () {
-    document.querySelector('.login-modal').style.display = 'block'
+  document.getElementById('register-open').onclick = modalShow;
+  document.querySelector('.close-button').onclick = modalHide;
+
+  function modalShow() {
+    document.querySelector('.login-modal').style.visibility = 'visible';
+    document.querySelector('.login-modal').style.opacity = '1';
+
   }
 
-
+  function modalHide() {
+    document.querySelector('.login-modal').style.visibility = 'hidden';
+    document.querySelector('.login-modal').style.opacity = '0';
+  }
 };
