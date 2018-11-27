@@ -13,32 +13,37 @@ html,body {
 /**** LAYAOUT STYLE *****/
 
 #layout-container {
-  background-image: url(../images/slider/slider4.jpg);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
+  
   min-height: 100vh;
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-direction: column;
-  animation: Slider 10s ease infinite;
-  filter: grayscale(57%);
+  
+}
+
+.layout-background {
+ // background-image: url(../images/slider/s/slider1.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  animation: Slider 15s ease infinite;
+  filter: grayscale(63%);
 }
 
 @keyframes Slider {
-/*	0% {
-		background-image: url(../images/slider/slider5.jpg)
+	0% {
+		background-image: url(../images/slider/s/slider1.jpg)
 	}
 	40% {
-		background-image: url(../images/slider/slider3.jpg)
+		background-image: url(../images/slider/s/slider2.jpg)
 	}
 	80% {
-		background-image: url(../images/slider/slider4.jpg)
+		background-image: url(../images/slider/s/slider3.jpg)
   }
   100% {
-		background-image: url(../images/slider/slider5.jpg)
-	}*/
+		background-image: url(../images/slider/s/slider1.jpg)
+	}
 }
 
 nav {
@@ -48,29 +53,21 @@ nav {
 nav img {
   max-width: 15%;
   padding: 3% 5%;
-}
 
-@media (min-width: 650px) {
-  nav img {
+  @media (min-width: 650px) {
     max-width:11%;
   }
-}
-
-@media (min-width: 950px) {
-  nav img {
+  
+  @media (min-width: 950px) {
     max-width:7%;
   }
-}
-
-@media (min-width: 1400px) {
-  nav img {
+  
+  @media (min-width: 1400px) {
     max-width:6%;
     padding: 2% 2%;
   }
-}
-
-@media (min-width: 1700px) {
-  nav img {
+  
+  @media (min-width: 1700px) {
     max-width:4%;
   }
 }
@@ -87,22 +84,16 @@ nav a {
   flex-direction: column;
   align-items: center;
   margin-top: -40%;
-}
 
-@media (min-width: 700px) {
-  #index-container {
+  @media (min-width: 700px) {
     margin-top: -30%;
   }
-}
-
-@media (min-width: 950px) {
-  #index-container {
+  
+  @media (min-width: 950px) {
     margin-top: -9%;
   }
-}
-
-@media (min-width: 1400px) {
-  #index-container {
+  
+  @media (min-width: 1400px) {
     width: 80%;
   }
 }
@@ -123,7 +114,7 @@ nav a {
   }
   
   @media (min-width: 1400px) {
-    font-size: 9em;
+      font-size: 9em;
   }
 
 }

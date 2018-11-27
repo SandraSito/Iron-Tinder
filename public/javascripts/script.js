@@ -1,5 +1,12 @@
 window.onload = function () {
 
+  let url = window.location.href;
+  let indexUrl = "http://localhost:3000/";
+
+  if(url===indexUrl){
+    document.getElementById('layout-container').classList.add('layout-background');
+  }
+
   document.getElementById('register-open').onclick = modalShow;
   document.querySelector('.close-button').onclick = modalHide;
 
