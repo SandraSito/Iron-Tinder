@@ -34,14 +34,21 @@ function llamada(mainUser, invitedUser) {
 
 function pintarMensajes(idChat) {
   let write = document.getElementById('messages-container');
-  
+  let classColocation = '';
   messagesInterval = setInterval(function () {
     axios.post('/chat/print', { idChat })
       .then((response) => {
         let msnArray = response.data.respuesta;
         write.innerHTML = '';
+        let slack_id = response.data.slack_id;
         msnArray.forEach(element => {
-          write.innerHTML += `<div>${element.message}</div>`;
+          console.log(slack_id);
+          if (element.author_Id == slack_id) {
+            classColocation = 'rigth';
+          } else {
+            classColocation = 'left';
+          }
+          write.innerHTML += `<div class='${classColocation}'>${element.message}</div>`;
 
         });
         return response;
@@ -54,7 +61,7 @@ function pintarMensajes(idChat) {
 
 function sendChat() {
   let message = document.getElementById('input-message').value;
-  document.getElementById('input-message').value=" ";
+  document.getElementById('input-message').value = " ";
   return axios.post('/chat/send', { mainUser, idChat, message })
     .then((response) => {
       return response.message;
