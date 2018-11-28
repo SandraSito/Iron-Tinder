@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require("express");
 const passport = require('passport');
 const router = express.Router();
@@ -19,19 +21,22 @@ router.get('/myProfile',ensureLoggedIn("/"),(req, res) => {
       allUsers])
     .then(data => {
       frontInfo = JSON.stringify({user, userLikes:data[0], userMatches:data[1],list:data[2]});
-      console.log(frontInfo)
       res.render('profile/myProfile',{frontInfo});
     })
   })
 });
 
-router.get('/tryit',ensureLoggedIn("/"),(req, res) => {
-axios.get("https://slack.com/api/channels.info?token=xoxp-2432150752-360856482067-487678719299-b06b55a4222871e6b246a9bcacb2dcee&channel=CEB4Y1SHE&pretty=1")
- .then((response) => {
-  
-   console.log(response.data.channel);
- });
-});
+router.post('/like',(req,res)=>{
+  LikeDis.findOneAndUpdate(req.body.userLikesGlobal.slack_id,{$push:{likes:req.body.itemGlobal}}).then((res)=>{
+    return res;
+  }).catch((err)=>console.log(err));
+})
+
+router.post('/dislike',(req,res)=>{
+  LikeDis.findOneAndUpdate(req.body.userLikesGlobal.slack_id,{$push:{dislikes:req.body.itemGlobal}}).then((res)=>{
+    return res;
+  }).catch((err)=>console.log(err));
+})
 
 function setMatches(loggedUser){
   return Match.findOne({slack_id:loggedUser.slack_id})
@@ -90,7 +95,6 @@ function setLikes(loggedUser){
 const allUsers = new Promise((res,rej) => {
   res(axios.get(`https://slack.com/api/channels.info?token=${process.env.TOKEN}&channel=${process.env.GROUP}&pretty=1`)
   .then(response => {
-    console.log(response)
     return response.data.channel.members;
   }).catch(()=>{
     console.log("Something went wrong creating users list")
