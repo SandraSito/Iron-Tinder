@@ -20,6 +20,7 @@ router.get('/myProfile',ensureLoggedIn("/"),(req, res) => {
       setMatches(user),
       allUsers])
     .then(data => {
+      
       frontInfo = JSON.stringify({user, userLikes:data[0], userMatches:data[1],list:data[2]});
       res.render('profile/myProfile',{frontInfo});
     })
@@ -36,6 +37,16 @@ router.post('/dislike',(req,res)=>{
   LikeDis.findOneAndUpdate(req.body.userLikesGlobal.slack_id,{$push:{dislikes:req.body.itemGlobal}}).then((res)=>{
     return res;
   }).catch((err)=>console.log(err));
+})
+
+router.post('/getprofile',(req,res)=>{
+  console.log('entro');
+  return User.findOne({slack_id: req.body.user})
+  .then((profile)=>{
+    //console.log(profile);
+    return res.status(200).json({profile:profile});
+  })
+  .catch(err=>console.log(err))
 })
 
 function setMatches(loggedUser){

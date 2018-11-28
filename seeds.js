@@ -48,6 +48,7 @@ mongoose
             newUser.avatar_img = `https://ca.slack-edge.com/${userData.team_id}-${
               userData.id
             }-${userProfile.avatar_hash}-1024`;
+            newUser.avatar_hash = userProfile.avatar_hash;
   
             return newUser
               .save()
