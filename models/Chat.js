@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const chatSchema = new Schema({
-  mainUser: { type: Schema.Types.ObjectId, ref: 'User' },
-  invitedUser: { type: Schema.Types.ObjectId, ref: 'User' }
+  mainUser: String,
+  invitedUser: String
 
 }, {
     timestamps: {
@@ -14,3 +14,4 @@ const chatSchema = new Schema({
 
 const Chat = mongoose.model('Chat', chatSchema);
 module.exports = Chat;
+
