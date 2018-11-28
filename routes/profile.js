@@ -90,6 +90,7 @@ function setLikes(loggedUser){
 const allUsers = new Promise((res,rej) => {
   res(axios.get(`https://slack.com/api/channels.info?token=${process.env.TOKEN}&channel=${process.env.GROUP}&pretty=1`)
   .then(response => {
+    console.log(response)
     return response.data.channel.members;
   }).catch(()=>{
     console.log("Something went wrong creating users list")
