@@ -96,6 +96,9 @@ app.use('/auth', authRoutes);
 
 const profileRoutes = require('./routes/profile');
 app.use('/profile', profileRoutes);
+
+const chatRoutes = require('./routes/chat');
+app.use('/chat', chatRoutes);
       
 
 module.exports = app;

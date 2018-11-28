@@ -208,4 +208,11 @@ footer p {
   font-style: italic;
   color: white; }
 
+/***** CHAT WINDOW *****/
+.chat-window {
+  width: 797px;
+  height: 544px;
+  background-color: #d5f9ed;
+  display: none; }
+
 /*# sourceMappingURL=style.css.map */
