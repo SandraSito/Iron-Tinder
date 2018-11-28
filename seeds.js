@@ -13,7 +13,7 @@ const axios = require("axios");
 
 mongoose
   .connect(
-    `mongodb:${process.env.DBPATH}`,
+    `${process.env.DBPATH}`,
     { useNewUrlParser: true }
   )
   .then(x => {

@@ -17,7 +17,7 @@ const flash      = require("connect-flash");
     
 
 mongoose
-  .connect('mongodb://localhost/iron-tinder', {useNewUrlParser: true})
+  .connect(`${process.env.DBPATH}`, {useNewUrlParser: true})
   .then(x => {
     console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
   })
