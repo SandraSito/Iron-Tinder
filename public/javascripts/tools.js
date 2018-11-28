@@ -4,7 +4,10 @@ function getUser(user){
     resolve(axios.get(`https://slack.com/api/users.info?token=xoxp-2432150752-348396915687-488368224677-bae207798455aeda1f56ae86de9c94b3&user=${user}&pretty=1`)
     .then(response =>{
       return response.data.user.profile;
-    }).catch((err)=>console.log(err))
+    }).catch((err)=>{
+      console.log(err)
+      console.log(user)
+    })
     )
     reject("tu puta madre")
   }
@@ -25,21 +28,19 @@ function getUser(user){
 function printCard(userLikes, list){
   var ok = 0;
   while(ok === 0){
-    item = Math.round(Math.random()*list.length-1);
+    item = Math.floor(Math.random()*list.length);
     item = list[item]
-    
+    console.log(item)
     if(userLikes.likes.includes(item)||userLikes.dislikes.includes(item)){
-      return
+      printCard(userLikes, list)
     }
     else{
       ok = 1;
-      getUser(item)
+      return getUser(item)
       .then((response) => { 
         console.log(response)
-        avatar_img = `https://ca.slack-edge.com/${response.team}-${
-              item
-            }-${response.avatar_hash}-1024`;
-            console.log(avatar_img)
+        avatar_img = `https://ca.slack-edge.com/${response.team}-${item}-${response.avatar_hash}-1024`;
+        console.log(avatar_img)
         document.getElementById('display-image').src=avatar_img;
         document.getElementById('display-name').textContent=response.display_name;
 
