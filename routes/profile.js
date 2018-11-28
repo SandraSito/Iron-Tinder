@@ -8,8 +8,6 @@ const axios = require("axios");
 const mongoose = require("mongoose");
 const { ensureLoggedIn, ensureLoggedOut } = require("connect-ensure-login");
 
-
-
 router.get('/myProfile',ensureLoggedIn("/"),(req, res) => {
   var frontInfo = {}
   User.findOne({slack_id:req.user.id})
@@ -20,12 +18,9 @@ router.get('/myProfile',ensureLoggedIn("/"),(req, res) => {
       setMatches(user),
       allUsers])
     .then(data => {
-      console.log(data)
-      console.log("________________")
-      frontInfo = {user, userLikes:data[0], userMatches:data[1],list:data[2]}
+      frontInfo = JSON.stringify({user, userLikes:data[0], userMatches:data[1],list:data[2]});
       console.log(frontInfo)
-      // return {user,userLikes,userMatches}
-      res.render('profile/myProfile',{frontInfo})
+      res.render('profile/myProfile',{frontInfo});
     })
   })
 });
@@ -95,7 +90,6 @@ function setLikes(loggedUser){
 const allUsers = new Promise((res,rej) => {
   res(axios.get(`https://slack.com/api/channels.info?token=${process.env.TOKEN}&channel=${process.env.GROUP}&pretty=1`)
   .then(response => {
-    
     return response.data.channel.members;
   }).catch(()=>{
     console.log("Something went wrong creating users list")
