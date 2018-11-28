@@ -8,20 +8,19 @@ const axios = require("axios");
 const mongoose = require("mongoose");
 const { ensureLoggedIn, ensureLoggedOut } = require("connect-ensure-login");
 
-
-
 router.get('/myProfile',ensureLoggedIn("/"),(req, res) => {
   var frontInfo = {}
   User.findOne({slack_id:req.user.id})
   .then((user)=>{
+    
     Promise.all([
       setLikes(user),
-      setMatches(user)])
+      setMatches(user),
+      allUsers])
     .then(data => {
-      frontInfo = {user, userLikes:data[0], userMatches:data[1]}
+      frontInfo = JSON.stringify({user, userLikes:data[0], userMatches:data[1],list:data[2]});
       console.log(frontInfo)
-      // return {user,userLikes,userMatches}
-      res.render('profile/myProfile',{frontInfo})
+      res.render('profile/myProfile',{frontInfo});
     })
   })
 });
@@ -48,15 +47,11 @@ function setMatches(loggedUser){
         })
         .catch(()=>{
           console.log("Match table creation went wrong")
-          
         })
       }else{
         console.log("User's matches already exists")
-        
         return matches;
-        
       }
-
     })
     .catch(()=>{
       console.log("Something was wrong during matches search")
@@ -64,40 +59,44 @@ function setMatches(loggedUser){
 }
 
 function setLikes(loggedUser){
-  return LikeDis.findOne({slack_id:loggedUser.slack_id})
+  return new Promise((res, rej) => {
+  res(LikeDis.findOne({slack_id:loggedUser.slack_id})
     .then((likes)=>{
       if(likes === null){
-        const newLikedis = new LikeDis();
-        newLikedis.slack_id = loggedUser.slack_id;
-        newLikedis.likes = [];
-        newLikedis.dislikes = [loggedUser.slack_id];
-        return newLikedis.save()
-        .then(()=>{
-          console.log("Like and Dislike table created")
-          
-          return newLikedis;
-        }).catch(()=>{
-          console.log("Like and Dislike table creation went wrong")
-        })
-      }
-      else{
+            const newLikedis = new LikeDis();
+            newLikedis.slack_id = loggedUser.slack_id;
+            newLikedis.likes = [];
+            newLikedis.dislikes = [loggedUser.slack_id];
+            return newLikedis.save()
+          .then((newLikedis)=>{
+            console.log("Like and Dislike table created")
+            return newLikedis;
+          }).catch((err)=>{
+            console.log(err)
+            console.log("Like and Dislike table creation went wrong")
+          })
+      } else {
         console.log("User's likes already exists")
-        
         return likes;
       }
-
-    })
+    }))
     .catch(()=>{
+      rej('algo falla')
       console.log("Something went wrong on user search")
     })
+  }
+  )}
 
-}
-
-
-
-
-
-
+const allUsers = new Promise((res,rej) => {
+  res(axios.get(`https://slack.com/api/channels.info?token=${process.env.TOKEN}&channel=${process.env.GROUP}&pretty=1`)
+  .then(response => {
+    console.log(response)
+    return response.data.channel.members;
+  }).catch(()=>{
+    console.log("Something went wrong creating users list")
+    rej('somethings went wrong in axios petition to dislikes')
+  }),
+  )})
 
 
 module.exports = router;
