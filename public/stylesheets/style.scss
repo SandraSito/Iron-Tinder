@@ -258,6 +258,20 @@ nav a {
 }
 
 
+/**** PROFILE ****/
+
+#profile-container{
+  width: 100%;
+  background-color: pink;
+  display: flex;
+  height: 70vh;
+}
+
+#user-panel-image {
+  border-radius: 50%;
+  max-width: 30%;
+}
+
 /*** FOOTER ***/
 
 footer {
