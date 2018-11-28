@@ -11,7 +11,7 @@ router.get("/", (req, res) => {
   console.log();
   Match.find({ slack_id: req.user.id })
     .then(match => {
-      res.render("profile/chat", { id: req.user.id, match: match[0].matches });
+      res.render("profile/chat", { id: req.user.id, match: match });
     })
     .catch(err => console.log(err))
 

@@ -3,21 +3,24 @@ let invitedUser;
 let messagesInterval;
 let idChat;
 
-document.querySelector('.open-chat').onclick = openChat;
+
+document.querySelector(".buttons-container").onclick=openChat;
+//document.querySelectorAll('.open-chat').onclick = openChat;
 document.getElementById('close-chat').onclick = closeChat;
 document.getElementById('send-message').onclick = sendChat;
 
 
 
 
-function openChat() {
-
+function openChat(e) {
+  
   document.querySelector('.chat-window').style.display = 'block';
   mainUser = document.querySelector('#miId').innerHTML;
-  invitedUser = document.querySelector('#otroId').innerHTML;
+  invitedUser = e.target.innerHTML;
 
   llamada(mainUser, invitedUser).then((res) => {
     idChat = res.data.chat[0]._id;
+    console.log(idChat);
     pintarMensajes(idChat)
 
   });
@@ -28,6 +31,7 @@ function openChat() {
 function llamada(mainUser, invitedUser) {
   return axios.post('/chat', { mainUser, invitedUser })
     .then((response) => {
+      console.log(response);
       return response;
     })
 }

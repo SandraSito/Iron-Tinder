@@ -1,8 +1,11 @@
 <span id="miId">{{id}}</span>
 
-<span id="otroId">{{match}}</span>
+<div class="buttons-container">
+  {{#each match}}
+  <button class="open-chat" style="color:green">{{this.matches}}</button>
+  {{/each}}
+</div>
 
-<button class="open-chat">OPEN CHAT</button>
 <div class="chat-window">
   <textarea id="input-message"></textarea>
   <button id="send-message">Send</button>
