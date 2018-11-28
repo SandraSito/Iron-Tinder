@@ -68,7 +68,10 @@ app.locals.title = 'Express - Generated with IronGenerator';
 
 app.use(passport.initialize());
 
-
+app.use((res,req,next)=>{
+  app.locals.user=req.user;
+  next();
+})
 // Enable authentication using session + passport
 app.use(session({
   secret: 'irongenerator',

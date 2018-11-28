@@ -1,7 +1,19 @@
-<span id="miId">UALR6E61Z</span>
+<span id="miId">{{id}}</span>
 <span id="otroId">UEDC0HQ4S</span>
 
 <button class="open-chat">OPEN CHAT</button>
 <div class="chat-window">
-
+  <textarea id="input-message"></textarea>
+  <button id="send-message">Send</button>
+  <button id="close-chat">Close</button>
+  <div id="messages-container"></div>
 </div>
+
+<script src="/javascripts/chat.js"></script>
+
+<style>
+  #input-message {
+    width: 600px;
+    height: 90px;
+  }
+</style>

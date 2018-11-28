@@ -6,36 +6,63 @@ const Message = require("../models/Message.js");
 const axios = require("axios");
 const mongoose = require("mongoose");
 
-router.get("/",(req,res)=>{
-  res.render("profile/chat");
+router.get("/", (req, res) => {
+  console.log();
+  res.render("profile/chat",{id:req.user.id});
 })
 
 router.post("/", (req, res) => {
-  let myId = req.body.myId;
-  let otherId = req.body.otherId;
-  // const { name, occupation, catchPhrase } = req.body;
-  //   const newCelebrity = new Celebrity({ name, occupation, catchPhrase });
-  Chat.findOne({ mainUser: myId, invitedUser: otherId })
+  const { mainUser, invitedUser } = req.body;
+  const { creacion } = req.body;
+  console.log(creacion)
+  return Chat.find({ mainUser: mainUser, invitedUser: invitedUser })
     .then(chat => {
-      if (chat !== null) {
-        res.status(200).json(chat);
+      if (chat.length > 0) {
+        console.log('abrimos chat');
+        return res.status(200).json({ chat });
       } else {
-        let {myId,otherId}=req.body;
-        let myChat = new Chat({myId, otherId});
-        console.log(myChat);
+        console.log('Creamos un nuevo chat');
+        let myChat = new Chat({ mainUser, invitedUser });
         return myChat.save()
           .then(res => {
             return res;
           })
           .catch(err => {
-
+            console.log('error al crear chat');
           })
       }
     })
     .catch(err => {
-
+      console.log('error al buscar chat');
     })
 
 })
+
+router.post("/send", (req, res) => {
+  let author_Id = req.body.mainUser;
+  let chat_Id = req.body.idChat;
+  let message = req.body.message;
+  console.log(author_Id,chat_Id,message);
+  myMessage = new Message({ author_Id, chat_Id, message });
+  myMessage.save()
+    .then(res => {
+      console.log('Mensaje guardado correctamente');
+    })
+    .catch(err => {
+      console.log('error al crear mensaje');
+    })
+  return res.status(200).json({ message: 'Ok' });
+})
+
+router.post("/print", (req, res) => {
+  let chat_Id = req.body.idChat;
+  return Message.find({ chat_Id: chat_Id })
+    .then(respuesta => {
+      return res.status(200).json({ respuesta });
+    }).catch(err => {
+      console.log(err);
+    })
+})
+
 
 module.exports = router;
