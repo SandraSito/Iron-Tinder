@@ -16,6 +16,9 @@ function getUser(user){
 
 
 function printCard(userLikes, list){
+
+    console.log(window.info);
+
     list = list.filter(element=>{
       return !userLikes.likes.includes(element) && !userLikes.dislikes.includes(element);
     })
@@ -32,6 +35,7 @@ function printCard(userLikes, list){
         response=response.data.profile;
         
         avatar_img = `https://ca.slack-edge.com/${response.team_id}-${item}-${response.avatar_hash}-1024`;
+        console.log(avatar_img);
         document.getElementById('display-image').src=avatar_img;
         document.getElementById('display-name').textContent=response.first_name+' '+response.last_name;
         document.getElementById('display_displayname').textContent=(`@${response.display_name}`);

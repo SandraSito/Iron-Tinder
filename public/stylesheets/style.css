@@ -201,7 +201,7 @@ nav a {
   width: 100%;
   background-color: pink;
   display: flex;
-  height: 95vh; }
+  height: 90vh; }
 
 #user-panel-image {
   border-radius: 50%;
@@ -212,11 +212,26 @@ nav a {
 
 #left-panel {
   width: 30%;
-  background-color: yellow; }
+  background-color: #ffffd4; }
 
 #rigth-panel {
   width: 70%;
-  background-color: purple; }
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column; }
+
+#user-panel-candidate {
+  background-color: peru;
+  width: 45%;
+  height: 65vh; }
+
+#user-panel-candidate img {
+  max-width: 100%; }
+
+#like-botton, #dislike-botton {
+  background: transparent;
+  border: none; }
 
 /*** FOOTER ***/
 footer {

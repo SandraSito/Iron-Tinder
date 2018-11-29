@@ -22,28 +22,28 @@ router.get('/myProfile',ensureLoggedIn("/"),(req, res) => {
     .then(data => {
       
       frontInfo = JSON.stringify({user, userLikes:data[0], userMatches:data[1],list:data[2]});
+      console.log(frontInfo);
       res.render('profile/myProfile',{frontInfo});
     })
   })
 });
 
 router.post('/like',(req,res)=>{
-  LikeDis.findOneAndUpdate(req.body.userLikesGlobal.slack_id,{$push:{likes:req.body.itemGlobal}}).then((res)=>{
+  LikeDis.findOneAndUpdate({slack_id:req.body.userLikesGlobal.slack_id},{$push:{likes:req.body.itemGlobal}}).then((res)=>{
     return res;
   }).catch((err)=>console.log(err));
 })
 
 router.post('/dislike',(req,res)=>{
-  LikeDis.findOneAndUpdate(req.body.userLikesGlobal.slack_id,{$push:{dislikes:req.body.itemGlobal}}).then((res)=>{
+  console.log(req.body.userLikesGlobal.slack_id)
+  LikeDis.findOneAndUpdate({slack_id:req.body.userLikesGlobal.slack_id},{$push:{dislikes:req.body.itemGlobal}}).then((res)=>{
     return res;
   }).catch((err)=>console.log(err));
 })
 
 router.post('/getprofile',(req,res)=>{
-  console.log('entro');
   return User.findOne({slack_id: req.body.user})
   .then((profile)=>{
-    //console.log(profile);
     return res.status(200).json({profile:profile});
   })
   .catch(err=>console.log(err))
