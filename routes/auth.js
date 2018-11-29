@@ -9,6 +9,7 @@ const { ensureLoggedIn, ensureLoggedOut } = require("connect-ensure-login");
 router.get('/callback',
   passport.authenticate('slack', { failureRedirect: '/' }),
   (req, res) => {
+    console.log('SAndra');
     console.log(req.user)
     res.redirect('/profile/myProfile')
   }
