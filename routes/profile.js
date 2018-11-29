@@ -28,9 +28,12 @@ router.get('/myProfile',ensureLoggedIn("/"),(req, res) => {
 });
 
 router.post('/like',(req,res)=>{
-  LikeDis.findOneAndUpdate(req.body.userLikesGlobal.slack_id,{$push:{likes:req.body.itemGlobal}}).then((res)=>{
+  LikeDis.findOneAndUpdate(req.body.userLikesGlobal.slack_id,{$push:{likes:req.body.itemGlobal}})
+  .then((res)=>{
     return res;
-  }).catch((err)=>console.log(err));
+  })
+  
+  .catch((err)=>console.log(err));
 })
 
 router.post('/dislike',(req,res)=>{
@@ -40,7 +43,6 @@ router.post('/dislike',(req,res)=>{
 })
 
 router.post('/getprofile',(req,res)=>{
-  console.log('entro');
   return User.findOne({slack_id: req.body.user})
   .then((profile)=>{
     //console.log(profile);
