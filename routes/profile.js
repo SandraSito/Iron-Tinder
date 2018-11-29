@@ -14,13 +14,11 @@ router.get('/myProfile', ensureLoggedIn("/"), (req, res) => {
   var frontInfo = {}
   User.findOne({ slack_id: req.user.id })
     .then((user) => {
-
       Promise.all([
         setLikes(user),
         setMatches(user),
         allUsers])
         .then(data => {
-
           frontInfo = JSON.stringify({ user, userLikes: data[0], userMatches: data[1], list: data[2] });
           console.log(frontInfo);
           res.render('profile/myProfile', { frontInfo });
@@ -32,6 +30,7 @@ router.post('/like', (req, res) => {
   LikeDis.findOneAndUpdate({ slack_id: req.body.userLikesGlobal.slack_id }, { $push: { likes: req.body.itemGlobal } }, {new:true})
   .then((response) => {
     return res.json({ response });
+
   })
   .catch((err) => console.log(err));
 })
