@@ -48,6 +48,7 @@ document.getElementById('like-botton').onclick = bottonLike;
 document.getElementById('dislike-botton').onclick = bottonDislike;
 
 function bottonLike() {
+
   let likes = '';
   axios.post('/profile/like', { itemGlobal, userLikesGlobal })
     .then((message) => {
@@ -65,10 +66,7 @@ function bottonLike() {
           })
         } else {
           printCard(likes, listGlobal)}
-        
       })
-
-
     }).catch((err) => console.log(err))
 }
 
