@@ -17,9 +17,11 @@ function getUser(user) {
 
 function printCard(userLikes, list) {
 
+
   list = list.filter(element => {
     return !userLikes.likes.includes(element) && !userLikes.dislikes.includes(element);
   })
+
 
   item = Math.floor(Math.random() * list.length);
   item = list[item];
@@ -50,11 +52,25 @@ document.getElementById('like-botton').onclick = bottonLike;
 document.getElementById('dislike-botton').onclick = bottonDislike;
 
 function bottonLike() {
+
+  let likes = '';
   axios.post('/profile/like', { itemGlobal, userLikesGlobal })
     .then((message) => {
-      let likes = message.data.response;
-      printCard(likes, listGlobal)
-
+       likes = message.data.response
+      return axios.post('/profile/match',{ itemGlobal, userLikesGlobal })
+      .then((result)=>{
+        console.log(result.data)
+        if(result.data.msg !== null){
+          return axios.post('/profile/getuser',{itemGlobal})
+          .then((profile)=>{
+            const matchUser = profile.data.profile
+            console.log(profile)
+            document.querySelector('.buttons-container').innerHTML+=`<img id="${matchUser.slack_id}" class='open-chat' src='https://ca.slack-edge.com/${matchUser.team_id}-${matchUser.slack_id}-${matchUser.avatar_hash}-1024' alt=''>`;
+          printCard(likes, listGlobal)
+          })
+        } else {
+          printCard(likes, listGlobal)}
+      })
     }).catch((err) => console.log(err))
 }
 
