@@ -50,13 +50,9 @@ document.getElementById('like-botton').onclick = bottonLike;
 document.getElementById('dislike-botton').onclick = bottonDislike;
 
 function bottonLike() {
-  console.log('BOTON LIKE');
   axios.post('/profile/like', { itemGlobal, userLikesGlobal })
     .then((message) => {
       let likes = message.data.response;
-      console.log('RESPUESTA LIKE');
-      console.log(message.data);
-      console.log('------------');
       printCard(likes, listGlobal)
 
     }).catch((err) => console.log(err))
