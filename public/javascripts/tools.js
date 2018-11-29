@@ -16,11 +16,9 @@ function getUser(user) {
 
 
 function printCard(userLikes, list) {
-  console.log(list);
   list = list.filter(element => {
     return !userLikes.likes.includes(element) && !userLikes.dislikes.includes(element);
   })
-  console.log(list);
   item = Math.floor(Math.random() * list.length);
   item = list[item];
   if (list.length > 0) {
@@ -50,22 +48,27 @@ document.getElementById('like-botton').onclick = bottonLike;
 document.getElementById('dislike-botton').onclick = bottonDislike;
 
 function bottonLike() {
-<<<<<<< HEAD
-  axios.post('/profile/like', { itemGlobal, userLikesGlobal })
-    .then((message) => {
-      let likes = message.data.response;
-      printCard(likes, listGlobal)
-=======
   let likes = '';
   axios.post('/profile/like', { itemGlobal, userLikesGlobal })
     .then((message) => {
        likes = message.data.response
-      axios.post('/profile/match',{ itemGlobal, userLikesGlobal })
-      .then(()=>{
-
-        printCard(likes, listGlobal)
+      return axios.post('/profile/match',{ itemGlobal, userLikesGlobal })
+      .then((result)=>{
+        console.log(result.data)
+        if(result.data.msg !== null){
+          return axios.post('/profile/getuser',{itemGlobal})
+          .then((profile)=>{
+            const matchUser = profile.data.profile
+            console.log(profile)
+            document.getElementById('user-panel-matchs').innerHTML+=`<img class='match_img' src='https://ca.slack-edge.com/${matchUser.team_id}-${matchUser.slack_id}-${matchUser.avatar_hash}-1024' alt=''>
+          <h1>${matchUser.slack_id}</h1>`;
+          printCard(likes, listGlobal)
+          })
+        } else {
+          printCard(likes, listGlobal)}
+        
       })
->>>>>>> 5411bbaf3605e782e6f0890bbd9aa8ec7c042165
+
 
     }).catch((err) => console.log(err))
 }

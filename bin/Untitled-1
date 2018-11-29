@@ -54,3 +54,9 @@ LikeDis.findOne({slack_id : req.body.itemGlobal})
       console.log("Something went wrong during the findOne LikeDis table search");
       console.log(err);
     })
+
+    {{!-- <img class="match_img" src='https://ca.slack-edge.com/${response.team_id}-${item}-${response.avatar_hash}-1024' alt="">
+<h1>${result.data.result.slack_id}</h1>
+
+document.getElementById('user-panel-matchs').innerHTML+=`<img class='match_img' src='https://ca.slack-edge.com/${window.info.user.team_id}-${item}-${response.avatar_hash}-1024' alt=''>
+          <h1>${result.data.result.slack_id}</h1>` --}}
