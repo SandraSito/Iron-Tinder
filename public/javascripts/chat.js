@@ -14,13 +14,14 @@ document.getElementById('send-message').onclick = sendChat;
 
 function openChat(e) {
   
-  document.querySelector('.chat-window').style.display = 'block';
+  document.querySelector('.chat-window').style.display = 'flex';
   mainUser = document.querySelector('#miId').innerHTML;
-  invitedUser = e.target.innerHTML;
+
+  invitedUser = e.target.id;
 
   llamada(mainUser, invitedUser).then((res) => {
     idChat = res.data.chat[0]._id;
-    console.log(idChat);
+    console.log('entro chat creado ');
     pintarMensajes(idChat)
 
   });
@@ -33,7 +34,7 @@ function llamada(mainUser, invitedUser) {
     .then((response) => {
       console.log(response);
       return response;
-    })
+    }).catch(err=>console.log(err))
 }
 
 function pintarMensajes(idChat) {
@@ -46,13 +47,15 @@ function pintarMensajes(idChat) {
         write.innerHTML = '';
         let slack_id = response.data.slack_id;
         msnArray.forEach(element => {
-          console.log(slack_id);
+          //console.log(slack_id);
           if (element.author_Id == slack_id) {
-            classColocation = 'rigth';
-          } else {
             classColocation = 'left';
+          } else {
+            classColocation = 'rigth';
           }
           write.innerHTML += `<div class='${classColocation}'>${element.message}</div>`;
+          let scroll = document.getElementById('messages-container');
+          scroll.scrollTop = scroll.scrollHeight;
 
         });
         return response;
@@ -66,6 +69,7 @@ function pintarMensajes(idChat) {
 function sendChat() {
   let message = document.getElementById('input-message').value;
   document.getElementById('input-message').value = " ";
+  console.log(idChat);
   return axios.post('/chat/send', { mainUser, idChat, message })
     .then((response) => {
       return response.message;
