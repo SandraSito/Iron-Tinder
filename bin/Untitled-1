@@ -1,0 +1,56 @@
+router.post('/like',(req,res)=>{
+  LikeDis.findOneAndUpdate({slack_id:req.body.userLikesGlobal.slack_id},{$push:{likes:req.body.itemGlobal}})
+  .then((response)=>{
+    
+    
+    // CONFLICTO FIIIJO AKI
+    return res.json({ response });
+    // CONFLICTO FIIIJO AKI
+
+
+
+
+LikeDis.findOne({slack_id : req.body.itemGlobal})
+    .then((finded)=>{
+      if(finded.likes.includes(req.body.userLikesGlobal.slack_id)){
+        console.log("MATCH")
+        Match.findOneAndUpdate({slack_id:req.body.userLikesGlobal.slack_id},{$push:{matches:req.body.itemGlobal}})
+        .then((result)=>{
+          console.log("User Match added");
+          console.log(result)
+          return result;
+        })
+        .catch((err)=>{
+          console.log("Something went wrong during User Match addition")
+          console.log(err)
+        })
+        Match.findOneAndUpdate({slack_id:req.body.itemGlobal},{$push:{matches:req.body.userLikesGlobal.slack_id}})
+        .then((result)=>{
+          if(result === null){
+            const newMatch = new Match()
+            newMatch.slack_id = req.body.itemGlobal;
+            newMatch.matches = [req.body.userLikesGlobal.slack_id];
+            return newMatch.save()
+            .then((newMatch)=>{
+              console.log("Matched user table created and match added")
+              return newMatch;
+            })
+            .catch((err)=>{
+              console.log("Match user table creation went wrong")
+              console.log(err)
+            })
+          }else{
+            console.log("Matched user match added")
+          }
+
+        }).catch((err)=>{
+          console.log("Something went wrong during MatchedUser Match addition")
+          console.log(err)
+        })
+      }else{
+        console.log("NO MATCH")
+      }
+    }).catch((err)=>{
+      console.log("Something went wrong during the findOne LikeDis table search");
+      console.log(err);
+    })
