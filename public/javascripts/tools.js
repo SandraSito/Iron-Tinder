@@ -50,22 +50,10 @@ document.getElementById('like-botton').onclick = bottonLike;
 document.getElementById('dislike-botton').onclick = bottonDislike;
 
 function bottonLike() {
-<<<<<<< HEAD
   axios.post('/profile/like', { itemGlobal, userLikesGlobal })
     .then((message) => {
       let likes = message.data.response;
       printCard(likes, listGlobal)
-=======
-  let likes = '';
-  axios.post('/profile/like', { itemGlobal, userLikesGlobal })
-    .then((message) => {
-       likes = message.data.response
-      axios.post('/profile/match',{ itemGlobal, userLikesGlobal })
-      .then(()=>{
-
-        printCard(likes, listGlobal)
-      })
->>>>>>> 5411bbaf3605e782e6f0890bbd9aa8ec7c042165
 
     }).catch((err) => console.log(err))
 }
