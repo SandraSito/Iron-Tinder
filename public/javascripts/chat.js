@@ -15,7 +15,7 @@ document.getElementById('send-message').onclick = sendChat;
 function openChat(e) {
   
   document.querySelector('.chat-window').style.display = 'flex';
-  mainUser = document.querySelector('#miId').innerHTML;
+  mainUser = document.querySelector('#miId').textContent;
 
   invitedUser = e.target.id;
 
