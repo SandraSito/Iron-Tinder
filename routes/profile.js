@@ -37,6 +37,8 @@ router.get('/myProfile', ensureLoggedIn("/"), (req, res) => {
           console.log(imgMatch);
           res.render('profile/myProfile', { frontInfo, match:imgMatch,id:req.user.id });
         })
+      })
+    });
 
 
 router.post("/like", (req, res) => {
