@@ -17,19 +17,16 @@ function getUser(user){
 
 function printCard(userLikes, list){
 
-    console.log(window.info);
-
     list = list.filter(element=>{
       return !userLikes.likes.includes(element) && !userLikes.dislikes.includes(element);
     })
+    console.log(list)
     item = Math.floor(Math.random()*list.length);
     item = list[item];
     if(list.length > 0){
       itemGlobal = item;
-      console.log(item);
       getUser(item)
       .then((response) => { 
-        console.log(response.data.profile);
         userLikesGlobal = userLikes;
         listGlobal = list;
         response=response.data.profile;
