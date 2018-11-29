@@ -9,6 +9,7 @@ $closeModalCOlor: #c9c9c9;
 html,body {
   margin: 0;
   padding: 0;
+  font-family: 'Source Sans Pro', sans-serif;
 }
 /**** LAYAOUT STYLE *****/
 
@@ -267,41 +268,102 @@ nav a {
 
 #profile-container{
   width: 100%;
-  background-color: pink;
   display: flex;
-  height: 90vh;
+  height: 95vh;
 }
 
 #user-panel-image {
   border-radius: 50%;
-  max-width: 30%;
+  max-width: 15%;
 }
 
 .nav-profile{
   max-height: 5vh;
+  position: absolute;
+  background-color: #48c9ff;
+  left: 87%;
+  top: 3%;
+  padding: 1% 2%;
+  border-radius: 7px;
+
+  &:hover {
+    background-color: #187096;
+    transition: all 0.5s
+  }
+}
+
+.nav-profile a{
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
 }
 
 #left-panel{
-  width: 30%;
-  background-color: rgb(255, 255, 212);
+  width: 25%;
+  box-shadow: 1px 1px 12px #d2d2d2;
 }
 
-#rigth-panel{
-  width: 70%;
+#my-data {
+  display: flex;
+  align-items: center;
+  background-image: linear-gradient(to right, #3b4a92 , #70cad6);
+  padding: 2% 1%;
+  box-shadow: 0 4px 2px -2px #bbbbbb;
+}
+
+.buttons-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+#user-panel-name {
+  margin-left: 7%;
+  font-size: 1.5em;
+}
+
+#matches-title {
+  margin-left: 3%;
+  font-size: 1.7em;
+  font-weight: bold;
+  border-bottom: 4px solid #3b5894;
+  display: inline-block;
+  line-height: 1;
+}
+
+#right-panel{
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  width: 75%;
+}
+
+#like-dislike{
+  width: 50vh;
+  display: flex;
+  justify-content: space-around;
+  margin-top: 3%;
 }
 
 #user-panel-candidate {
-  background-color: peru;
-  width: 45%;
-  height: 65vh;
+  width: 64vh;
+  height: 66vh;
+}
+
+#candidate-data {
+  color: white;
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-top: -15%;
+  margin-left: 9%;
 }
 
 #user-panel-candidate img {
-  max-width: 100%;
+  border-radius: 11px;
+  height: 66vh;
+  width: 64vh;
+  box-shadow: 1px 1px 13px #a1a1a1;
 }
 
 #like-botton, #dislike-botton {
@@ -342,28 +404,51 @@ footer p{
 /***** CHAT WINDOW *****/
 
 .chat-window{
-  display: none;
   width: 100%;
   position: absolute;
-  background: #ffd0d0;
+  background: #ffebeb;
   flex-direction: column;
   left: 0;
-  height: 90vh;
-  top: 2vh;
- 
+  height: 95vh;
+  top: 0;
+  display: none;
 }
 
 #messages-container {
   overflow-y: scroll;
+  height: 80vh;
+}
+
+#close-chat {
+  position: fixed;
+  top: 2%;
+  left: 95%;
+  $size: 50px;
+}
+
+.write {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.write button {
+  border-radius: 50%;
+  width: 8%;
+  background-color: blue;
 }
 
 #input-message {
-  width: 600px;
-  height: 90px;
+  width: 92%;
+    height: 14vh;
 }
 .open-chat{
   width: 13vh;
   height: 15vh;
+  filter: grayscale(43%);
+  width: 16vh;
+  height: 18vh;
+  box-shadow: 1px 1px 10px #cecece;
   filter: grayscale(43%);
   
   &:hover {
@@ -375,19 +460,23 @@ footer p{
 
 .left{
   position: relative;
-  left:50%;
-  margin-bottom: 2%;
+  left:70%;
+  margin-bottom: 1%;
   background-color: white;
-  width: 30%;
+  width: 25%;
   padding:1% 0;
   border-radius: 10px;
+  padding:1% 0;
+  text-align: center;
 }
 .rigth{
   position: relative;
-  left: 0;
-  margin-bottom: 2%;
+  left: 5%;
+  margin-bottom: 1%;
   background-color: white;
   padding:1% 0;
   border-radius: 10px;
-  width: 30%;
+  width: 25%;
+  padding:2% 0;
+  text-align: center;
 }

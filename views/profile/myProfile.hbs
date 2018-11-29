@@ -3,25 +3,30 @@
     <a href="/auth/logout">Logout</a>
   </div>
   <div id="profile-container">
-    <div id="left-panel">
-      <div id="user-panel">
-        <img id="user-panel-image" src='' alt="">
-        <h3 id="user-panel-name"></h3>
-        <span id="miId" style="display:none">{{id}}</span>
 
-        <div class="buttons-container">
-          {{#each match}}
-          <img id="{{this.id_invitado}}" class="open-chat" src="{{this.img}}">
-          {{/each}}
+    <div id="left-panel">
+        <div id="my-data">
+          <img id="user-panel-image" src='' alt="">
+          <h3 id="user-panel-name"></h3>
         </div>
-      </div>
+        <p id="matches-title">Matches</p>
+        <span id="miId" style="display:none">{{id}}</span>
+        <div id="match-data">          
+          <div class="buttons-container">
+            {{#each match}}
+            <img id="{{this.id_invitado}}" class="open-chat" src="{{this.img}}">
+            {{/each}}
+          </div>
+        </div>
+     
     </div>
+
     <div id="right-panel">
       <div id="user-panel-candidate">
         {{> candidate}}
       </div>
       <div id="like-dislike">
-        <button id="like-botton"><img src="/images/like.png"></button>
+        <button id="like-botton"><img src="/images/heart.png"></button>
         <button id="dislike-botton"><img src="/images/dislike.png"></button>
       </div>
     </div>
@@ -29,13 +34,12 @@
 </div>
 
 <div class="chat-window">
-  <div>
+  <div id="messages-container"></div>
+  <a class="close-button" id="close-chat"></a>
+  <div class="write">
     <textarea id="input-message"></textarea>
     <button id="send-message">Send</button>
-    <button id="close-chat">Close</button>
-
   </div>
-  <div id="messages-container"></div>
 </div>
 
 
@@ -46,3 +50,8 @@
 <script src="/javascripts/tools.js"></script>
 <script src="/javascripts/myprofilelogic.js"></script>
 <script src="/javascripts/chat.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+  $('#user-panel-candidate').draggable();
+</script>
