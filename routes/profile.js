@@ -4,27 +4,40 @@ const express = require("express");
 const passport = require("passport");
 const router = express.Router();
 const User = require("../models/User");
+const Chat = require("../models/Chat.js");
+const Message = require("../models/Message.js");
 const LikeDis = require("../models/Likes_dislikes.js");
 const Match = require("../models/Matched.js");
 const axios = require("axios");
 const mongoose = require("mongoose");
 const { ensureLoggedIn, ensureLoggedOut } = require("connect-ensure-login");
 
-router.get("/myProfile", ensureLoggedIn("/"), (req, res) => {
-  var frontInfo = {};
-  User.findOne({ slack_id: req.user.id }).then(user => {
-    Promise.all([setLikes(user), setMatches(user), allUsers]).then(data => {
-      frontInfo = JSON.stringify({
-        user,
-        userLikes: data[0],
-        userMatches: data[1],
-        list: data[2]
-      });
-      console.log(frontInfo);
-      res.render("profile/myProfile", { frontInfo });
-    });
-  });
-});
+
+
+
+router.get('/myProfile', ensureLoggedIn("/"), (req, res) => {
+  var frontInfo = {}
+  User.findOne({ slack_id: req.user.id })
+    .then((user) => {
+      Promise.all([
+        setLikes(user),
+        setMatches(user),
+        allUsers,
+        getImgMatches(req.user.id),
+        ])
+        .then(data => {
+          frontInfo = JSON.stringify({ user, userLikes: data[0], userMatches: data[1], list: data[2] });
+          imgMatch=[];
+          data[3].forEach(actualMatch=>{
+            console.log(actualMatch);
+            let img=`https://ca.slack-edge.com/${actualMatch.team_id}-${actualMatch.slack_id}-${actualMatch.avatar_hash}-1024`;
+            imgMatch.push({img:img,id_invitado:actualMatch.slack_id})
+          
+          })
+          console.log(imgMatch);
+          res.render('profile/myProfile', { frontInfo, match:imgMatch,id:req.user.id });
+        })
+
 
 router.post("/like", (req, res) => {
   LikeDis.findOneAndUpdate(
@@ -34,9 +47,37 @@ router.post("/like", (req, res) => {
   )
     .then(response => {
       return res.json({ response });
+
     })
     .catch(err => console.log(err));
 });
+    
+
+
+
+function getImgMatches (id){
+  return Match.findOne({ slack_id: id })
+  .then(match=>{
+    return Promise.all(
+      match.matches.map(match=>{
+        return User.findOne({slack_id:match})
+      })
+    )
+  })
+}
+    
+router.post("/dislike", (req, res) => {
+  LikeDis.findOneAndUpdate(
+    { slack_id: req.body.userLikesGlobal.slack_id },
+    { $push: { dislikes: req.body.itemGlobal } },
+    { new: true }
+  )
+    .then(response => {
+      return res.json({ response });
+    })
+    .catch(err => console.log(err));
+});
+    
 
 router.post("/match", (req, res) => {
   return LikeDis.findOne({ slack_id: req.body.itemGlobal })
@@ -99,17 +140,7 @@ router.post("/match", (req, res) => {
     });
 });
 
-router.post("/dislike", (req, res) => {
-  LikeDis.findOneAndUpdate(
-    { slack_id: req.body.userLikesGlobal.slack_id },
-    { $push: { dislikes: req.body.itemGlobal } },
-    { new: true }
-  )
-    .then(response => {
-      return res.json({ response });
-    })
-    .catch(err => console.log(err));
-});
+
 
 router.post("/getuser", (req, res) => {
   return User.findOne({ slack_id: req.body.itemGlobal })
@@ -118,6 +149,7 @@ router.post("/getuser", (req, res) => {
     })
     .catch(err => console.log(err));
 });
+
 
 router.post("/getprofile", (req, res) => {
   return User.findOne({ slack_id: req.body.user })

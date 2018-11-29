@@ -7,15 +7,7 @@ const Match = require("../models/Matched.js");
 const axios = require("axios");
 const mongoose = require("mongoose");
 
-router.get("/", (req, res) => {
-  console.log();
-  Match.find({ slack_id: req.user.id })
-    .then(match => {
-      res.render("profile/chat", { id: req.user.id, match: match });
-    })
-    .catch(err => console.log(err))
 
-})
 
 router.post("/", (req, res) => {
   const { mainUser, invitedUser } = req.body;
@@ -25,13 +17,14 @@ router.post("/", (req, res) => {
     .then(chat => {
       if (chat.length > 0) {
         console.log('abrimos chat');
-        return res.status(200).json({ chat });
+         res.status(200).json({ chat });
+         return;
       } else {
         console.log('Creamos un nuevo chat');
         let myChat = new Chat({ mainUser, invitedUser });
         return myChat.save()
-          .then(res => {
-            return res;
+          .then(chat => {
+             res.json({chat:[chat]});
           })
           .catch(err => {
             console.log('error al crear chat');

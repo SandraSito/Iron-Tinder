@@ -1,16 +1,19 @@
 <div id="pgeneral-container">
   <div class="nav-profile">
     <a href="/auth/logout">Logout</a>
-    <a href="/chat">CHAT</a>
   </div>
   <div id="profile-container">
     <div id="left-panel">
       <div id="user-panel">
         <img id="user-panel-image" src='' alt="">
         <h3 id="user-panel-name"></h3>
-      </div>
-      <div id="user-panel-matchs">
-        {{> matches}}
+        <span id="miId" style="display:none">{{id}}</span>
+
+        <div class="buttons-container">
+          {{#each match}}
+          <img id="{{this.id_invitado}}" class="open-chat" src="{{this.img}}">
+          {{/each}}
+        </div>
       </div>
     </div>
     <div id="right-panel">
@@ -23,10 +26,17 @@
       </div>
     </div>
   </div>
-
 </div>
 
+<div class="chat-window">
+  <div>
+    <textarea id="input-message"></textarea>
+    <button id="send-message">Send</button>
+    <button id="close-chat">Close</button>
 
+  </div>
+  <div id="messages-container"></div>
+</div>
 
 
 
@@ -35,3 +45,4 @@
 </script>
 <script src="/javascripts/tools.js"></script>
 <script src="/javascripts/myprofilelogic.js"></script>
+<script src="/javascripts/chat.js"></script>
