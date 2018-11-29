@@ -60,8 +60,7 @@ function bottonLike() {
           .then((profile)=>{
             const matchUser = profile.data.profile
             console.log(profile)
-            document.getElementById('user-panel-matchs').innerHTML+=`<img class='match_img' src='https://ca.slack-edge.com/${matchUser.team_id}-${matchUser.slack_id}-${matchUser.avatar_hash}-1024' alt=''>
-          <h1>${matchUser.slack_id}</h1>`;
+            document.querySelector('.buttons-container').innerHTML+=`<img id="${matchUser.slack_id}" class='open-chat' src='https://ca.slack-edge.com/${matchUser.team_id}-${matchUser.slack_id}-${matchUser.avatar_hash}-1024' alt=''>`;
           printCard(likes, listGlobal)
           })
         } else {
