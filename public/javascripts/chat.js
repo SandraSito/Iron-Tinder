@@ -47,7 +47,7 @@ function pintarMensajes(idChat) {
         write.innerHTML = '';
         let slack_id = response.data.slack_id;
         msnArray.forEach(element => {
-          //console.log(slack_id);
+          console.log(element);
           if (element.author_Id == slack_id) {
             classColocation = 'left';
           } else {

@@ -343,11 +343,11 @@ footer p{
 
 .chat-window{
   display: none;
-  width: 70%;
+  width: 100%;
   position: absolute;
   background: #ffd0d0;
   flex-direction: column;
-  left: 30%;
+  left: 0;
   height: 90vh;
   top: 2vh;
  
