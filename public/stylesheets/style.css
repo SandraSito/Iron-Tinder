@@ -36,21 +36,22 @@ nav {
   max-height: 0vh; }
 
 nav img {
-  max-width: 15%;
-  padding: 3% 5%; }
+  max-width: 30%;
+  max-height: 100%;
+  padding: 3% 3%; }
   @media (min-width: 650px) {
     nav img {
-      max-width: 11%; } }
+      max-width: 30%; } }
   @media (min-width: 950px) {
     nav img {
-      max-width: 7%; } }
+      max-width: 30%; } }
   @media (min-width: 1400px) {
     nav img {
-      max-width: 6%;
+      max-width: 30%;
       padding: 2% 2%; } }
   @media (min-width: 1700px) {
     nav img {
-      max-width: 4%; } }
+      max-width: 30%; } }
 
 nav a {
   color: white;
@@ -90,7 +91,7 @@ nav a {
       font-size: 9em; } }
 
 .slogan p {
-  margin-top: 0; }
+  margin-top: 20%; }
 
 .btn {
   font-family: 'Source Sans Pro', sans-serif; }
@@ -150,21 +151,33 @@ nav a {
   align-items: center; }
 
 .modal-target p {
-  font-size: 2em;
+  margin: 7px;
+  padding: 0;
+  margin-bottom: 10%;
+  text-align: center;
+  font-size: 1.5em;
   font-weight: bold;
   font-style: italic;
   font-family: 'Source Sans Pro', sans-serif; }
 
 .modal-target .logo {
-  max-width: 15%;
-  margin-top: 10%; }
+  max-width: 24%;
+  margin-top: 0%;
+  object-fit: scale-down; }
+
+.modal-info p {
+  margin-bottom: 10.4%;
+  font-weight: normal;
+  font-size: 1em;
+  text-align: left; }
 
 .slack-login {
   max-width: 85%;
-  margin-top: 35%; }
+  margin-top: 4%; }
 
 .slack-login img {
-  max-width: 100%; }
+  max-width: 100%;
+  margin-top: 14%; }
 
 .close-button {
   height: 30px;
@@ -330,7 +343,8 @@ footer p {
   width: 100%;
   position: absolute;
   height: 90vh;
-  display: none; }
+  display: none
+}
 
 #messages-container {
   overflow-y: scroll;
