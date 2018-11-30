@@ -36,22 +36,9 @@ nav {
   max-height: 0vh; }
 
 nav img {
-  max-width: 30%;
-  max-height: 100%;
-  padding: 3% 3%; }
-  @media (min-width: 650px) {
-    nav img {
-      max-width: 30%; } }
-  @media (min-width: 950px) {
-    nav img {
-      max-width: 30%; } }
-  @media (min-width: 1400px) {
-    nav img {
-      max-width: 30%;
-      padding: 2% 2%; } }
-  @media (min-width: 1700px) {
-    nav img {
-      max-width: 30%; } }
+  max-width: 15%;
+  padding: 2% 2%;
+  object-fit: cover; }
 
 nav a {
   color: white;
@@ -343,8 +330,7 @@ footer p {
   width: 100%;
   position: absolute;
   height: 90vh;
-  display: none
-}
+  display: none; }
 
 #messages-container {
   overflow-y: scroll;

@@ -52,26 +52,29 @@ nav {
 }
 
 nav img {
-  max-width: 30%;
-  max-height: 100%;
-  padding: 3% 3%;
+  // max-width: 30%;
+  // max-height: 100%;
+  // padding: 3% 3%;
 
-  @media (min-width: 650px) {
-    max-width:30%;
-  }
+  // @media (min-width: 650px) {
+  //   max-width:30%;
+  // }
   
-  @media (min-width: 950px) {
-    max-width:30%;
-  }
+  // @media (min-width: 950px) {
+  //   max-width:30%;
+  // }
   
-  @media (min-width: 1400px) {
-    max-width:30%;
-    padding: 2% 2%;
-  }
+  // @media (min-width: 1400px) {
+  //   max-width:30%;
+  //   padding: 2% 2%;
+  // }
   
-  @media (min-width: 1700px) {
-    max-width:30%;
-  }
+  // @media (min-width: 1700px) {
+  //   max-width:30%;
+  // }
+  max-width: 15%;
+  padding: 2% 2%;
+  object-fit: cover;
 }
 
 nav a {
@@ -449,7 +452,7 @@ footer p{
   overflow-y: scroll;
   width: 100%;
   padding-top: 2%;
-  height: 600px;
+  height: 70vh;
 }
 
 #chat-left {
@@ -468,8 +471,8 @@ footer p{
 }
 
 #chat-img-invit {
-  width: 8vh;
-  height: 8vh;
+  width: 7vh;
+  height: 7vh;
   border-radius: 50%;
   margin-left: 2%;
 }
