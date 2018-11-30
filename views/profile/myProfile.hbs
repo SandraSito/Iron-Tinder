@@ -5,23 +5,24 @@
   <div id="profile-container">
 
     <div id="left-panel">
-        <div id="my-data">
-          <img id="user-panel-image" src='' alt="">
-          <h3 id="user-panel-name"></h3>
+      <div id="my-data">
+        <img id="user-panel-image" src='' alt="">
+        <h3 id="user-panel-name"></h3>
+      </div>
+      <p id="matches-title">Matches</p>
+      <span id="miId" style="display:none">{{id}}</span>
+      <div id="match-data">
+        <div class="buttons-container">
+          {{#each match}}
+          <img id="{{this.id_invitado}}" class="open-chat" src="{{this.img}}">
+          {{/each}}
         </div>
-        <p id="matches-title">Matches</p>
-        <span id="miId" style="display:none">{{id}}</span>
-        <div id="match-data">          
-          <div class="buttons-container">
-            {{#each match}}
-            <img id="{{this.id_invitado}}" class="open-chat" src="{{this.img}}">
-            {{/each}}
-          </div>
-        </div>
-     
+      </div>
+
     </div>
 
     <div id="right-panel">
+      <div id="simon">
       <div id="user-panel-candidate">
         {{> candidate}}
       </div>
@@ -29,17 +30,28 @@
         <button id="like-botton"><img src="/images/heart.png"></button>
         <button id="dislike-botton"><img src="/images/dislike.png"></button>
       </div>
+      </div>
     </div>
   </div>
 </div>
 
 <div class="chat-window">
-  <div id="messages-container"></div>
-  <a class="close-button" id="close-chat"></a>
-  <div class="write">
-    <textarea id="input-message"></textarea>
-    <button id="send-message">Send</button>
+  <div id="chat-left">
   </div>
+  <div id="chat-right">
+    <div id="invited-chat">
+      <img  id="chat-img-invit" src="">
+    </div>
+    <a class="close-button" id="close-chat"></a>
+    <div id="dani">
+    <div id="messages-container"></div>
+    <div class="write">
+      <textarea id="input-message" placeholder="Escribe tu mensaje ..."></textarea>
+      <button id="send-message">Send</button>
+    </div>
+    </div>
+  </div>
+
 </div>
 
 
