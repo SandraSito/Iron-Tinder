@@ -16,7 +16,9 @@ function openChat(e) {
   
   document.querySelector('.chat-window').style.display = 'flex';
   mainUser = document.querySelector('#miId').textContent;
-
+  console.log('-------------------------------')
+  console.log();
+  document.getElementById('chat-img-invit').src=e.target.src;
   invitedUser = e.target.id;
 
   llamada(mainUser, invitedUser).then((res) => {
@@ -32,7 +34,6 @@ function openChat(e) {
 function llamada(mainUser, invitedUser) {
   return axios.post('/chat', { mainUser, invitedUser })
     .then((response) => {
-      console.log(response);
       return response;
     }).catch(err=>console.log(err))
 }
@@ -47,12 +48,12 @@ function pintarMensajes(idChat) {
         write.innerHTML = '';
         let slack_id = response.data.slack_id;
         msnArray.forEach(element => {
-          console.log(element);
           if (element.author_Id == slack_id) {
             classColocation = 'left';
           } else {
             classColocation = 'rigth';
           }
+          
           write.innerHTML += `<div class='${classColocation}'>${element.message}</div>`;
           let scroll = document.getElementById('messages-container');
           scroll.scrollTop = scroll.scrollHeight;
